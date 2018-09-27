@@ -59,14 +59,13 @@ public class dropdownexamples {
 		System.out.println("************");
 		System.out.println(elmntcount);
 		
-		for (int i = 0; i < elmntcount; i++) {	
-			System.out.println("Extract list items using For loop************");
+		System.out.println("Extract list items using For loop************");
+		for (int i = 0; i < elmntcount; i++) {			
 			System.out.println(elementlist.get(i).getText());						
 		}
 		
-		System.out.println("************");
-		for (WebElement option : elementlist) {
-			System.out.println("Extract list items using Foreach loop************");
+		System.out.println("Extract list items using Foreach loop************");
+		for (WebElement option : elementlist) {			
 			System.out.println(option.getText());
 		}
 		
