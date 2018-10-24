@@ -5,16 +5,21 @@ import java.awt.Robot; //Java AWT (Abstract Window Toolkit) is an API to develop
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class uploadDocsUsingSendKeys {
 
-	public static void main(String[] args) throws InterruptedException, AWTException {
+	public static void main(String[] args) throws InterruptedException, AWTException, IOException {
 			
 		//For Upload docs if the Upload/Attach button is an "Input" tag type 
 		//then one need to use the the sendkeys method just to pass the file to upload location string.
@@ -37,6 +42,12 @@ public class uploadDocsUsingSendKeys {
 		driver.findElement(By.id("dateOfBirth")).sendKeys("10/10/2018");
 		driver.findElement(By.name("submitButton")).click();
 		Thread.sleep(2000);
+		
+		//Capture Screenshot
+		File osnapshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		String oLoc = "D:\\me\\Study\\Selenium\\Practice\\seleniumcodes";
+		FileUtils.copyFile(osnapshot, new File(oLoc +"/screenshots/"+ System.currentTimeMillis() + ".png"));
+
 		
 		String txt = driver.findElement(By.xpath("//a[@class='ct-bold']")).getText();
 		if (txt.equalsIgnoreCase("Try uploading again")) {

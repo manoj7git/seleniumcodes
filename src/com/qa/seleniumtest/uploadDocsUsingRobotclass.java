@@ -5,16 +5,21 @@ import java.awt.Robot; //Java AWT (Abstract Window Toolkit) is an API to develop
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class uploadDocsUsingRobotclass {
 
-	public static void main(String[] args) throws InterruptedException, AWTException {
+	public static void main(String[] args) throws InterruptedException, AWTException, IOException {
 			
 		//For Upload docs if the Upload/Attach button is not an "Input" tag type 
 		//then one need to use the Robot class in order to simulate the Keyboard methods and
@@ -41,6 +46,8 @@ public class uploadDocsUsingRobotclass {
 		System.out.println(text);
 		
 		driver.findElement(By.xpath("//div[@id='uploadPrescriptionModelSec']//span[contains(text(),'Choose File')]")).click();
+		Thread.sleep(2000);
+			
 		
 		//Accessing the Robot class in order to replicate Keyboard access
 		Robot rbt = new Robot();
@@ -67,6 +74,11 @@ public class uploadDocsUsingRobotclass {
 		System.out.println(text1);
 		
 		driver.findElement(By.xpath("//div[@id='uploadPrescriptionModelSec']//i[@class='closeModal hide-prescriptionblock']")).click();
+		
+		//Capture Screenshot
+		File osnapshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+		String oLoc = "D:\\me\\Study\\Selenium\\Practice\\seleniumcodes";
+		FileUtils.copyFile(osnapshot, new File(oLoc +"/screenshots/"+ System.currentTimeMillis() + ".png"));
 		
 
 		driver.quit();
